@@ -131,8 +131,8 @@ Regulatory conversations were concentrated around specific policy moments rather
 ## Tools
 
 - Power BI
-- SQL
-- Excel
+- DAX
+- Power Query
 
 ## Analytical Skills
 
@@ -167,6 +167,7 @@ The analysis workflow included:
 Applied:
 
 - Data modeling
+- Power Query transformation
 - DAX measures
 - Interactive visualization
 - KPI cards
