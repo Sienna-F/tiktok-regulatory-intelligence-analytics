@@ -179,11 +179,10 @@ This project demonstrates how large-scale social media data can be transformed i
 
 ---
 
-# Author
+## Author
 
-Wenqing
+Wenqing Fu
 
-Aspiring Data Analyst specializing in Business Intelligence, Data Storytelling, and Strategic Analytics.
+Data Analyst focused on Business Intelligence, Data Storytelling, and Strategic Analytics, with experience transforming complex datasets into actionable insights.
 
-Skills:
-Power BI | SQL | Excel | Business Analysis 
+Skills: Power BI | SQL | Excel | Business Analysis | Data Visualization
