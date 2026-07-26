@@ -181,7 +181,9 @@ This project demonstrates how large-scale social media data can be transformed i
 
 # Author
 
-Data Analyst Portfolio Project
+Wenqing
 
-Skills demonstrated:
-Power BI | SQL | Data Analysis | Business Intelligence | Data Storytelling
+Aspiring Data Analyst specializing in Business Intelligence, Data Storytelling, and Strategic Analytics.
+
+Skills:
+Power BI | SQL | Excel | Business Analysis 
