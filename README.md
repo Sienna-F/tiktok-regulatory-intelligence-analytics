@@ -4,6 +4,8 @@
 
 A Power BI analytics project exploring how regulatory milestones shaped public discourse, stakeholder influence, and engagement patterns during the US TikTok ban debate.
 
+## Dashboard Preview
+
 ![Project Overview](01_executive_overview.PNG)
 
 ---
