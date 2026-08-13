@@ -1,191 +1,191 @@
-# TikTok Regulatory Intelligence Analytics
+# TikTok Regulatory Intelligence & Stakeholder Analytics
 
-## US TikTok Ban Discourse Analysis (2020–2024)
+**Independent Business Intelligence Project | Power BI · Power Query · DAX**
 
-A Power BI analytics project exploring how regulatory milestones shaped public discourse, stakeholder influence, and engagement patterns during the US TikTok ban debate.
+An end-to-end analytics project examining **567K cleaned public Twitter/X posts about TikTok regulation in the United States** between 2020 and 2024. The project combines engagement trends, account-level influence, collection-period patterns, and regulatory milestones in a four-page Power BI report.
 
-## Dashboard Preview
+> This project analyzes public discussion **about TikTok** on Twitter/X. It does not use TikTok platform data or represent TikTok's internal analytics.
 
-![Project Overview](01_executive_overview.PNG)
+## Project at a Glance
 
----
+| Scope | Result |
+|---|---:|
+| Analysis period | 2020-2024 |
+| Cleaned posts | 567K |
+| Unique users | 314K |
+| Recorded engagement | 9.1M |
+| Average engagement per post | 16.06 |
+| Peak engagement period | Q1 2024 |
+| Peak quarterly engagement | 2.4M |
+| Dashboard pages | 4 |
 
-# Project Overview
+Recorded engagement is calculated as the sum of likes, retweets, and replies available in the dataset.
 
-This project analyzes large-scale social media discussions surrounding TikTok regulatory events in the United States from 2020 to 2024.
+## Project Context
 
-The objective is to understand:
+Organizations operating in regulated markets need to understand when public attention changes, which accounts attract disproportionate engagement, and how discussion patterns coincide with policy developments. This project converts a large social-media dataset into a regulatory-intelligence dashboard designed to support monitoring and exploratory analysis.
 
-- How regulatory milestones influenced public engagement
-- Which stakeholders played a significant role in shaping discussions
-- When major discourse spikes occurred
-- How engagement was distributed across users and sources
+The analysis addresses four questions:
 
-By transforming raw social media data into interactive dashboards, this project provides insights into regulatory risk, stakeholder influence, and public attention dynamics.
+1. When did discussion volume and engagement peak?
+2. Which high-engagement accounts were most visible in the dataset?
+3. How concentrated was engagement across accounts and collection periods?
+4. Which engagement peaks coincided with major US TikTok regulatory milestones?
 
----
+## My Contribution
 
-# Business Questions
+I independently completed the analytical workflow:
 
-This analysis focuses on four key business questions:
+- Cleaned and transformed the source data in Power Query, producing a final analytical table of 567K posts.
+- Built a date model linking the cleaned post-level table with a dedicated date dimension and regulatory-event table.
+- Developed DAX measures for post volume, unique users, likes, retweets, replies, total engagement, average engagement, followers, and peak quarterly engagement.
+- Separated reusable numeric measures from presentation-specific KPI display measures.
+- Designed four Power BI pages covering executive trends, account influence, collection-period exploration, and regulatory-event comparison.
+- Translated the observed patterns into monitoring implications while avoiding unsupported causal or sentiment claims.
 
-### 1. How did regulatory events influence public attention?
+## Dashboard Walkthrough
 
-Identify major engagement spikes and understand how policy milestones affected online discussion intensity.
+### 1. Executive Overview
 
-### 2. Who were the key stakeholders shaping the conversation?
-
-Analyze influential actors based on engagement contribution and audience reach.
-
-### 3. Which sources drove regulatory discussions?
-
-Identify high-impact collection periods and sources responsible for generating disproportionate engagement.
-
-### 4. What patterns can organizations learn from regulatory uncertainty?
-
-Translate social media signals into insights for monitoring regulatory risk and stakeholder response.
-
----
-
-# Dashboard Overview
-
-## Executive Overview
-
-Provides a high-level summary of TikTok regulatory discussions, including:
-
-- Total tweets
-- Unique users
-- Total engagement
-- Engagement trends
-- Influential actors
-- Peak discussion periods
+Summarizes cleaned post volume, unique users, recorded engagement, quarterly trends, high-engagement accounts, and peak collection periods.
 
 ![Executive Overview](01_executive_overview.PNG)
 
+### 2. Stakeholder Influence Analysis
 
----
+Explores the accounts generating the highest recorded engagement and compares audience reach with engagement performance. In this project, account-level results are used as a proxy for identifying potentially influential participants; they are not a formal classification of every user as a stakeholder.
 
-## Stakeholder Influence Analysis
+![Stakeholder Influence Analysis](02_stakeholder_influence.PNG)
 
-Examines how different actors contributed to regulatory discussions.
+### 3. Discussion Drivers and Collection-Period Exploration
 
-Key analyses include:
+Examines how engagement is distributed across high-activity collection dates. The page is treated as exploratory because the underlying `Source.Name` field represents source files or collection batches rather than verified media or content sources.
 
-- Top influential actors by engagement
-- Audience reach comparison
-- Engagement efficiency analysis
+> The legacy dashboard screenshot retains several "Source" labels. In the documented interpretation, these are treated as collection-period or source-file metadata, not as publishers, platforms, or causal discussion drivers. Source-level KPI cards are therefore not used as headline findings.
 
-![Stakeholder Influence](02_stakeholder_influence.PNG)
+![Discussion Drivers and Collection Periods](03_discussion_drivers.PNG)
 
+### 4. Regulatory Milestones and Engagement
 
----
+Compares quarterly engagement trends with selected US TikTok regulatory milestones. Q1 2024 recorded the highest quarterly engagement in the modeled period.
 
-## Discussion Drivers & Source Analysis
+![Regulatory Milestones and Engagement](04_regulatory_event_impact.PNG)
 
-Identifies major drivers behind regulatory conversations.
+## Analytical Model
 
-Key analyses include:
+The Power BI model contains:
 
-- High-impact collection periods
-- Source contribution to overall engagement
-- Concentration of discussion drivers
+- `all`: original imported data
+- `TikTok_Clean`: cleaned post-level analytical table
+- `Dim_Date`: date dimension supporting month, quarter, and quarter-year analysis
+- `Regulatory Events`: selected policy milestones mapped by date
+- `Measure`: reusable numeric DAX measures
+- `KPI Display`: presentation-specific formatted measures
 
-![Discussion Drivers](03_discussion_drivers.PNG)
+`TikTok_Clean` connects to `Dim_Date`, while the regulatory-event table uses the same date structure. This enables engagement trends and selected policy milestones to be viewed on a consistent time axis.
 
+## Representative DAX Measures
 
----
+### Total Posts
 
-## Regulatory Milestones & Public Engagement Impact
+```DAX
+Total Tweets =
+COUNTROWS(TikTok_Clean)
+```
 
-Explores the relationship between regulatory milestones and public attention.
+### Unique Users
 
-Key analyses include:
+```DAX
+Unique Users =
+DISTINCTCOUNT(TikTok_Clean[username])
+```
 
-- Engagement evolution over time
-- Major regulatory periods
-- Public response patterns
+### Total Recorded Engagement
 
-![Regulatory Impact](04_regulatory_event_impact.PNG)
+```DAX
+Total Engagement =
+[Total Likes] + [Total Retweets] + [Total Replies]
+```
 
+### Average Engagement per Post
 
----
+```DAX
+Average Engagement per Tweet =
+DIVIDE(
+    [Total Engagement],
+    [Total Tweets]
+)
+```
 
-# Key Insights
+### Average Engagement per User
 
-### Regulatory events acted as major engagement triggers
+The legacy Power BI measure is named `Average Engagement per Actor`; its calculation is total engagement divided by distinct usernames:
 
-Public attention increased significantly around major policy milestones, suggesting regulatory announcements played an important role in shaping online discourse.
+```DAX
+Average Engagement per Actor =
+DIVIDE(
+    [Total Actor Engagement],
+    [Total Actors]
+)
+```
 
-### Influence was concentrated among a small number of stakeholders
+### Peak Quarterly Engagement
 
-A limited group of actors generated a disproportionate amount of engagement, highlighting the importance of stakeholder influence beyond audience size alone.
+```DAX
+Peak Engagement =
+MAXX(
+    VALUES(Dim_Date[Quarter-Year]),
+    [Total Engagement]
+)
+```
 
-### Discussion intensity was highly event-driven
+## Key Findings
 
-Regulatory conversations were concentrated around specific policy moments rather than being evenly distributed over time.
+- The cleaned dataset contains **567K posts from 314K unique users**, generating **9.1M recorded engagements**.
+- Average recorded engagement was **16.06 interactions per post**.
+- Engagement was unevenly distributed over time, with several pronounced peaks rather than a stable level of discussion.
+- **Q1 2024** was the highest-engagement quarter in the modeled period, reaching approximately **2.4M recorded engagements**.
+- A relatively small group of accounts generated disproportionate engagement, indicating that visibility was concentrated rather than evenly distributed across users.
+- Several engagement peaks coincided with major regulatory periods. This temporal alignment supports monitoring value but does not by itself prove that a policy event caused the observed change.
 
----
+## Regulatory-Intelligence Implications
 
-# Tools & Skills
+1. **Monitor milestones and engagement together**  
+   Use a shared timeline to identify when changes in public attention coincide with policy developments.
 
-## Tools
+2. **Track high-engagement accounts, not follower count alone**  
+   Audience reach and engagement contribution provide different signals of account visibility.
 
-- Power BI
-- DAX
-- Power Query
+3. **Prepare for event-concentrated attention**  
+   Public discussion can change rapidly around high-salience regulatory periods, requiring timely monitoring and communication planning.
 
-## Analytical Skills
+4. **Validate signals before drawing causal conclusions**  
+   Combine social-media trends with policy documents, news coverage, and additional contextual evidence before attributing changes to a specific event.
 
-- Data cleaning and transformation
-- KPI development
-- Stakeholder analysis
-- Trend analysis
-- Engagement analysis
-- Data visualization
-- Business storytelling
+## Tools and Techniques
 
----
+- **Power BI:** interactive reporting, data modeling, KPI cards, trend and account-level analysis
+- **Power Query:** source consolidation, cleaning, transformation, and preparation of the final analytical table
+- **DAX:** `COUNTROWS`, `DISTINCTCOUNT`, `DIVIDE`, `MAXX`, `VALUES`, reusable measures, KPI formatting
+- **Analytical methods:** time-series comparison, engagement concentration, account ranking, reach-versus-engagement comparison, milestone mapping
 
-# Data & Methodology
+## Documentation
 
-## Data Source
+- [Methodology](methodology.md)
+- [Data Dictionary](data_dictionary.md)
 
-Social media discussion dataset related to US TikTok regulatory events (2020–2024).
+## Data and Limitations
 
-## Data Processing
-
-The analysis workflow included:
-
-1. Data preparation and cleaning
-2. KPI calculation
-3. Trend and engagement analysis
-4. Stakeholder segmentation
-5. Dashboard development
-
-## Power BI Techniques
-
-Applied:
-
-- Data modeling
-- Power Query transformation
-- DAX measures
-- Interactive visualization
-- KPI cards
-- Trend analysis
-- Business-oriented dashboard design
-
----
-
-# Project Outcome
-
-This project demonstrates how large-scale social media data can be transformed into actionable intelligence for understanding regulatory risk, stakeholder behavior, and public sentiment dynamics.
-
----
+- The project uses a supplied portfolio dataset of public Twitter/X posts about TikTok regulation; it does not contain TikTok platform analytics.
+- The cleaned analytical table contains 567K records after Power Query preparation.
+- Engagement includes only likes, retweets, and replies present in the dataset.
+- Account names and follower counts reflect the supplied records and may not represent current identities or audience sizes.
+- The regulatory-event table contains selected milestones and is not a comprehensive legal chronology.
+- The project does not perform validated sentiment, stance, bot, network, or causal analysis.
+- Temporal coincidence between engagement peaks and regulatory milestones should be interpreted as association, not proof of causality.
+- Collection dates and source-file metadata do not identify verified publishers or original information sources.
 
 ## Author
 
-Wenqing Fu
-
-Data Analyst focused on Business Intelligence, Data Storytelling, and Strategic Analytics, with experience transforming complex datasets into actionable insights.
-
-Skills: Power BI | SQL | Excel | Business Analysis | Data Visualization
+**Wenqing Fu**  
+Business Intelligence · Data Analysis · Regulatory Intelligence
